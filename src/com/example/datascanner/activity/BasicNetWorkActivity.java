@@ -9,19 +9,27 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.GsonRequest;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
 import com.example.datascanner.DataScannerApplication;
+import com.example.datascanner.R;
+import com.example.datascanner.tools.BitmapCache;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import android.R.bool;
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public abstract class BasicNetWorkActivity extends Activity {
 	RequestQueue mQueue;
 	Gson mGson;
+	ImageLoader mImageLoader;
+	ImageListener mImageListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,7 @@ public abstract class BasicNetWorkActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		mQueue = DataScannerApplication.getInstance().getRequestQueue();
 		mGson=new Gson();
+		mImageLoader=new ImageLoader(mQueue, new BitmapCache());
 	}
 
 	protected boolean putJsonRequest(String url, final int type) {
@@ -92,6 +101,12 @@ public abstract class BasicNetWorkActivity extends Activity {
 				});
 
 		mQueue.add(mStringRequest);
+		return false;
+	}
+	
+	protected boolean bindImage(ImageView imageView,String url) {
+		mImageListener=ImageLoader.getImageListener(imageView, R.drawable.ic_launcher, R.drawable.ic_launcher);
+		mImageLoader.get(url, mImageListener);
 		return false;
 	}
 

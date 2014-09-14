@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.example.datascanner.R;
 import com.example.datascanner.bean.UserBean;
@@ -24,8 +25,12 @@ public class LogoActivity extends BasicNetWorkActivity {
 		
 //		String url="http://121.40.86.242/user/login?name=xianrui&password=xianrui123";
 //		putJsonRequest(url, LOGIN);
-		String url="http://121.40.86.242/user/getinf";
-		putGsonRequest(url, LOGIN);
+//		String url="http://121.40.86.242/user/getinf";
+//		putGsonRequest(url, LOGIN);
+		
+		ImageView imageView=(ImageView)findViewById(R.id.myImage);
+		bindImage(imageView, "http://ttw.tukuzhan.com/uploads/allimg/110829/1341211V0-0.jpg");
+		
 	}
 
 	@Override
