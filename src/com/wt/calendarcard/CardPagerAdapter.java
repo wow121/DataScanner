@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 public class CardPagerAdapter extends PagerAdapter {
@@ -20,15 +21,15 @@ public class CardPagerAdapter extends PagerAdapter {
 	@Override
 	public Object instantiateItem(View collection, final int position) {
 		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(0);
 		cal.add(Calendar.MONTH, position);
 		CalendarCard card = new CalendarCard(mContext);
 		card.setDateDisplay(cal);
 		card.notifyChanges();
 		if (card.getOnCellItemClick() == null)
 			card.setOnCellItemClick(defaultOnCellItemClick);
-		
 		((ViewPager) collection).addView(card,0);
-		
+		Log.i("viewpage_load", position+"");
 		return card;
 	}
 	

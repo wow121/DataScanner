@@ -42,8 +42,10 @@ public class LogoActivity extends BasicNetWorkActivity {
 		
 		mCalendarCard = (CalendarCardPager)findViewById(R.id.calendarCard1);
 		
+		Calendar cal = Calendar.getInstance();
+		int index=(cal.get(Calendar.YEAR)-1970)*12+cal.get(Calendar.MONTH);
 		
-		
+		mCalendarCard.setCurrentItem(index);
 		mCalendarCard.setOnCellItemClick(new OnCellItemClick() {
 			@Override
 			public void onCellClick(View v, CardGridItem item) {
@@ -55,7 +57,7 @@ public class LogoActivity extends BasicNetWorkActivity {
 			}
 		});
 		
-		
+		mCalendarCard.getCardPagerAdapter().get
 		
 	}
 
