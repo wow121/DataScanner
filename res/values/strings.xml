@@ -3,5 +3,5 @@
 
     <string name="app_name">DataScanner</string>
     <string name="hello_world">Hello world!</string>
-
+	<string name="net_error">网络连接失败</string>
 </resources>

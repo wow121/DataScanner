@@ -1,31 +1,26 @@
 package com.example.datascanner.activity;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.json.JSONObject;
+
+import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.GsonRequest;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.ImageLoader.ImageListener;
 import com.example.datascanner.DataScannerApplication;
 import com.example.datascanner.R;
 import com.example.datascanner.tools.BitmapCache;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.tandong.sa.activity.SmartActivity;
 
-import android.R.bool;
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-public abstract class BasicNetWorkActivity extends Activity {
+public abstract class BasicNetWorkActivity extends SmartActivity {
 	RequestQueue mQueue;
 	Gson mGson;
 	ImageLoader mImageLoader;
@@ -52,7 +47,7 @@ public abstract class BasicNetWorkActivity extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						// TODO Auto-generated method stub
-						showToast("ÍøÂçÁ¬½ÓÊ§°Ü£¬Çë¼ì²éÍøÂç£¡");
+						showToast(getResources().getString(R.string.net_error));
 					}
 				});
 		mQueue.add(jsonObjectRequest);
@@ -72,7 +67,7 @@ public abstract class BasicNetWorkActivity extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						// TODO Auto-generated method stub
-						showToast("ÍøÂçÁ¬½ÓÊ§°Ü£¬Çë¼ì²éÍøÂç£¡");
+						showToast(getResources().getString(R.string.net_error));
 					}
 				});
 		mQueue.add(jsonObjectRequest);
@@ -96,7 +91,7 @@ public abstract class BasicNetWorkActivity extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						// TODO Auto-generated method stub
-						showToast("ÍøÂçÁ¬½ÓÊ§°Ü£¬Çë¼ì²éÍøÂç£¡");
+						showToast(getResources().getString(R.string.net_error));
 					}
 				});
 
@@ -112,8 +107,6 @@ public abstract class BasicNetWorkActivity extends Activity {
 
 	protected abstract boolean onRequestEnd(Object response, int type);
 
-	protected void showToast(String message) {
-		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-	}
+	
 
 }
