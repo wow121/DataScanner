@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import com.example.datascanner.R;
+import com.example.datascanner.tools.ChineseCalendar;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -25,6 +26,9 @@ public class CalendarCard extends RelativeLayout {
 	private Calendar dateDisplay;
 	private ArrayList<CheckableLayout> cells = new ArrayList<CheckableLayout>();
 	private LinearLayout cardGrid;
+	
+	private String months[]=new String[]{"一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"};
+	private String weeks[]=new String[]{"周一","周二","周三","周四","周五","周六","周日"};
 
 	public CalendarCard(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -51,23 +55,17 @@ public class CalendarCard extends RelativeLayout {
 		cardTitle = (TextView)layout.findViewById(R.id.cardTitle);
 		cardGrid = (LinearLayout)layout.findViewById(R.id.cardGrid);
 		
-		cardTitle.setText(new SimpleDateFormat("MMM yyyy", Locale.getDefault()).format(dateDisplay.getTime()));
+//		cardTitle.setText(new SimpleDateFormat("MMM yyyy", Locale.getDefault()).format(dateDisplay.getTime()));
 		
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		((TextView)layout.findViewById(R.id.cardDay1)).setText(cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
-		cal.add(Calendar.DAY_OF_WEEK, 1);
-		((TextView)layout.findViewById(R.id.cardDay2)).setText(cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
-		cal.add(Calendar.DAY_OF_WEEK, 1);
-		((TextView)layout.findViewById(R.id.cardDay3)).setText(cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
-		cal.add(Calendar.DAY_OF_WEEK, 1);
-		((TextView)layout.findViewById(R.id.cardDay4)).setText(cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
-		cal.add(Calendar.DAY_OF_WEEK, 1);
-		((TextView)layout.findViewById(R.id.cardDay5)).setText(cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
-		cal.add(Calendar.DAY_OF_WEEK, 1);
-		((TextView)layout.findViewById(R.id.cardDay6)).setText(cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
-		cal.add(Calendar.DAY_OF_WEEK, 1);
-		((TextView)layout.findViewById(R.id.cardDay7)).setText(cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
+		cardTitle.setText(months[dateDisplay.get(Calendar.MONTH)]+" "+dateDisplay.get(Calendar.YEAR));
+
+		((TextView)layout.findViewById(R.id.cardDay1)).setText(weeks[0]);		
+		((TextView)layout.findViewById(R.id.cardDay2)).setText(weeks[1]);		
+		((TextView)layout.findViewById(R.id.cardDay3)).setText(weeks[2]);		
+		((TextView)layout.findViewById(R.id.cardDay4)).setText(weeks[3]);		
+		((TextView)layout.findViewById(R.id.cardDay5)).setText(weeks[4]);		
+		((TextView)layout.findViewById(R.id.cardDay6)).setText(weeks[5]);		
+		((TextView)layout.findViewById(R.id.cardDay7)).setText(weeks[6]);
 		
 		LayoutInflater la = LayoutInflater.from(ctx);
 		for(int y=0; y<cardGrid.getChildCount(); y++) {
@@ -97,7 +95,14 @@ public class CalendarCard extends RelativeLayout {
 		mOnItemRenderDefault = new OnItemRender() {
 			@Override
 			public void onRender(CheckableLayout v, CardGridItem item) {
-				((TextView)v.getChildAt(0)).setText(item.getDayOfMonth().toString());
+				((TextView)v.findViewById(R.id.calendar_item_num)).setText(item.getDayOfMonth().toString());
+				try {
+					Calendar calendar=item.getDate();
+					ChineseCalendar chineseCalendar=new ChineseCalendar(calendar.getTime());
+					((TextView)v.findViewById(R.id.calendar_item_chinese)).setText(chineseCalendar.getChinese(chineseCalendar.CHINESE_DATE));
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 			}
 		};
 		
@@ -219,7 +224,7 @@ public class CalendarCard extends RelativeLayout {
 
 	public void setDateDisplay(Calendar dateDisplay) {
 		this.dateDisplay = dateDisplay;
-		cardTitle.setText(new SimpleDateFormat("MMM yyyy", Locale.getDefault()).format(dateDisplay.getTime()));
+		cardTitle.setText(months[dateDisplay.get(Calendar.MONTH)]+" "+dateDisplay.get(Calendar.YEAR));
 	}
 
 	public OnCellItemClick getOnCellItemClick() {

@@ -50,9 +50,7 @@ public class LogoActivity extends BasicNetWorkActivity {
 			@Override
 			public void onCellClick(View v, CardGridItem item) {
 				Calendar mCalendar=item.getDate();
-//				mCalendar.set(2014, 10, 24);
 				ChineseCalendar calendar=new ChineseCalendar(mCalendar.getTime());
-//				showToast("yue:"+calendar.getChinese(ChineseCalendar.CHINESE_MONTH)+" ri:"+calendar.getChinese(ChineseCalendar.CHINESE_DATE)+"");
 				showToast(calendar.getSimpleChineseDateString());
 			}
 		});

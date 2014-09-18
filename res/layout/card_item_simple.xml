@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:gravity="center" />
+    android:padding="10dp">
+
+    <CheckedTextView
+        android:id="@+id/calendar_item_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+         />
+    <TextView 
+        android:id="@+id/calendar_item_chinese"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/calendar_item_num"
+        android:layout_marginTop="3dp"
+        />
+
+</RelativeLayout>
