@@ -57,7 +57,7 @@ public class LogoActivity extends BasicNetWorkActivity {
 			}
 		});
 		
-		mCalendarCard.getCardPagerAdapter().get
+		
 		
 	}
 
